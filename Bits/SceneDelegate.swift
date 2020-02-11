@@ -11,13 +11,48 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = createTabBarController()
+        window?.makeKeyAndVisible()
+        
+        configureNavigationBar()
+    }
+    
+    private func createSavedBitsNavigationController() -> UINavigationController {
+        let savedEntriesViewController = SavedBitsViewController()
+        savedEntriesViewController.title = "Saved 'Bits"
+        savedEntriesViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        return UINavigationController(rootViewController: savedEntriesViewController)
+    }
+    
+    private func createBitNavigationController() -> UINavigationController {
+        let entryViewController = BitViewController()
+        entryViewController.title = "Add 'Bit"
+        entryViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
+        
+        return UINavigationController(rootViewController: entryViewController)
+    }
+    
+    private func createTabBarController() -> UITabBarController {
+        let tabBar = UITabBarController()
+        let tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.barTintColor = .black
+        tabBarAppearance.tintColor = .systemRed
+        tabBarAppearance.isTranslucent = false
+        tabBar.viewControllers = [createSavedBitsNavigationController(), createBitNavigationController()]
+        return tabBar
+    }
+    
+    private func configureNavigationBar() {
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.backgroundColor = .systemGray6
+        //        navBarAppearance.isTranslucent = false
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

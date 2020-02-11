@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SavedBitsViewController.swift
 //  Bits
 //
 //  Created by Wouter Willebrands on 11/02/2020.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SavedBitsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        view.backgroundColor = .systemRed
     }
-
-
 }
-
